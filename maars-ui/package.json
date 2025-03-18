@@ -2,12 +2,12 @@
   "name": "electron-react-ts-app",
   "version": "1.0.0",
   "description": "Electron React TypeScript Application",
-  "main": "src/main/index.ts",
+  "main": "dist/main/index.js",
   "scripts": {
     "start": "concurrently \"npm run start:react\" \"npm run start:electron\"",
     "start:react": "webpack serve --port 3000",
-    "start:electron": "wait-on http://localhost:3000 && ts-node src/main/index.ts",
-    "build": "webpack --config webpack.config.js && tsc -p tsconfig.electron.json",
+    "start:electron": "wait-on http://localhost:3000 && npx tsc -p tsconfig.electron.json && electron dist/main/index.js",
+    "build": "webpack --config webpack.config.js && npx tsc -p tsconfig.electron.json",
     "package": "npm run build && electron-builder build --mac --win --linux --x64 --ia32",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
@@ -23,6 +23,7 @@
       "output": "release"
     }
   },
+  "type": "module",
   "keywords": [],
   "author": "",
   "license": "ISC",
@@ -33,7 +34,6 @@
     "react-dom": "^19.0.0"
   },
   "devDependencies": {
-    "@types/electron": "^1.4.38",
     "@types/react": "^19.0.11",
     "@types/react-dom": "^19.0.4",
     "concurrently": "^9.1.2",
@@ -42,7 +42,8 @@
     "style-loader": "^4.0.0",
     "ts-loader": "^9.5.2",
     "ts-node": "^10.9.2",
-    "tsc": "^2.0.4",
+    "ts-node-dev": "^2.0.0",
+    "typescript": "^5.8.2",
     "wait-on": "^8.0.3",
     "webpack": "^5.98.0",
     "webpack-cli": "^6.0.1",
